@@ -1,7 +1,20 @@
-import _ from 'lodash'
+import 'reflect-metadata'
+import { plainToClass } from 'class-transformer'
+import { Product } from './product.model'
 
-console.log(_.shuffle([1,2,3]))
+const products = [
+    {title: '商品１', price: 100},
+    {title: '商品２', price: 200},
+]
 
-declare var GLOBAL: any
+// const p1 = new Product('商品１', 100)
 
-console.log(GLOBAL)
+// const loadedProducts = products.map(prod => {
+//     return new Product(prod.title, prod.price)
+// })
+
+const loadedProducts = plainToClass(Product, products)
+
+for (const prod of loadedProducts){
+    console.log(prod.getInformation())
+}
